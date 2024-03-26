@@ -5,7 +5,7 @@
 /**
  * binary_tree_is_leaf - a function that checks if a node is a leaf
  *
- * node: the note to check if its a leaf or not
+ * @node: the note to check if its a leaf or not
  *
  * Return: 1 if node is a leaf otherwise 0
  */
