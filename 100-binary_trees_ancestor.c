@@ -13,21 +13,22 @@
  * NULL if no ancestor was found
  */
 
-binary_tree_t *binary_trees_ancestor(const binary_tree_t *first, const binary_tree_t *second)
+binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
+		const binary_tree_t *second)
 {
-	if (first->parent == second->parent)
-		return (first->parent);
-	if (first->left == second || first->right == second)
+	binary_tree_t *mom, *pop;
+
+	mom = first->parent;
+	pop = second->parent;
+
+	if (!first || !second)
+		return (NULL);
+	if (first == second)
 		return ((binary_tree_t *)first);
-	if (second->left == first || second->right == first)
-		return ((binary_tree_t *)second);
-	if (second->parent->parent->left == first)
-		return (second->parent->parent);
-	if (second->parent->parent->right == first)
-		return (second->parent->parent);
-	if (first->parent->parent->left == second)
-		return (first->parent->parent);
-	if (first->parent->parent->right == second)
-		return (first->parent->parent);
-	return (NULL);
+
+	if (first == pop || !mom || (!mom->parent && pop))
+		return (binary_trees_ancestor(first, pop));
+	else if (second == mom || !pop || (!pop->parent && mom))
+		return (binary_trees_ancestor(second, mom));
+	return (binary_trees_ancestor(pop, mom));
 }
